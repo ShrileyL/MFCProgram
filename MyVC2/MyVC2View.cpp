@@ -69,6 +69,7 @@ void CMyVC2View::OnDraw(CDC* pDC)
 	Rectangle0(pDC,-700,0,0,-500,RGB(128,128,128));
 	Ellipses(pDC,-300,500,0,0,1,RGB(192,192,192),LTGRAY_BRUSH);
 	Ellipsem(pDC,-500,250,200,RGB(192,192,192));
+
 	Polygon1(pDC,350,-300,RGB(255,0,0));
 	Polygon0(pDC,350,-300,RGB(0,0,0));
 	Line0(pDC,-700,500,700,-500,4,RGB(255,0,0));
@@ -222,9 +223,9 @@ void CMyVC2View::Arc1(CDC *pDC, int x0, int y0, int r, double Ro, double Rd, int
 	double pxo,pyo,pxd,pyd,PI;
 	PI = 3.1415;
 	pxo = r*cos(Ro*PI/180.0) + x0;
-	pyo = r*cos(Ro*PI/180.0) + y0;
+	pyo = r*sin(Ro*PI/180.0) + y0;
 	pxd = r*cos(Rd*PI/180.0) + x0;
-	pyd = r*cos(Rd*PI/180.0) + y0;
+	pyd = r*sin(Rd*PI/180.0) + y0;
 	
 	eiPen.CreatePen(PS_SOLID,width,col);
 	pOldPen = pDC->SelectObject(&eiPen);
@@ -251,7 +252,7 @@ void CMyVC2View::Polygon0(CDC *pDC, int x0, int y0, COLORREF col)
 	for (int i = 0; i<5; ++i)
 		{
 			pt[i].x = x0 + int(sin(double(i)*Angle)*300);
-			pt[i].y = x0 + int(cos(double(i)*Angle)*300);
+			pt[i].y = y0 + int(cos(double(i)*Angle)*300);
 		}
 	pDC->Polygon(pt,5);
 	pDC->SelectObject(pOldBrush);
@@ -265,7 +266,7 @@ void CMyVC2View::Polygon1(CDC *pDC, int x0, int y0, COLORREF col)
 	CBrush goBrust;
 	CBrush* pOldBrush;
 	CPen* pOldPen;
-	goBrust.CreateHatchBrush(HS_CROSS,col);
+	goBrust.CreateSolidBrush(col);
 	pOldBrush = pDC->SelectObject(&goBrust);
 	pOldPen = (CPen*)pDC->SelectStockObject(NULL_PEN);
 	//pDC->SetBkMode(TRANSPARENT);
@@ -274,7 +275,7 @@ void CMyVC2View::Polygon1(CDC *pDC, int x0, int y0, COLORREF col)
 	for (int i = 0; i<5; ++i)
 	{
 		pt[i].x = x0 + int(sin(double(i)*Angle)*300.0);
-		pt[i].y = x0 + int(cos(double(i)*Angle)*300.0);
+		pt[i].y = y0 + int(cos(double(i)*Angle)*300.0);
 	}
 	pDC->SetPolyFillMode(WINDING);
 	pDC->Polygon(pt,5);
