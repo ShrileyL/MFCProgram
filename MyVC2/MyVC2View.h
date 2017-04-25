@@ -48,6 +48,14 @@ protected:
 
 // Generated message map functions
 protected:
+	void Polygon1(CDC *pDC, int x0, int y0, COLORREF col);
+	void Polygon0(CDC *pDC, int x0, int y0,COLORREF col);
+	void Arc1(CDC *pDC, int x0, int y0, int r,double Ro,double Rd, int width, COLORREF col);
+	void Ellipsem(CDC *pDC, int x0, int y0, int r, COLORREF col);
+	void Arc0(CDC* pDC,int x0,int y0,int r,int width,COLORREF col);
+	void Ellipses(CDC* pDC, int x1,int y1, int x2, int y2,int width, COLORREF col,BOOL mb);
+	void Line0(CDC* pDC,int x1,int y1,int x2,int y2,int width,COLORREF col);
+	void Rectangle0(CDC* pDC,int x1,int y1,int x2,int y2,COLORREF col);
 	//{{AFX_MSG(CMyVC2View)
 		// NOTE - the ClassWizard will add and remove member functions here.
 		//    DO NOT EDIT what you see in these blocks of generated code !
