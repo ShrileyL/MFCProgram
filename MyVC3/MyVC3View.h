@@ -47,10 +47,12 @@ protected:
 
 // Generated message map functions
 protected:
+	void paint0(CDC* pDC);
+	void CoordinateSystem(CDC* pDC);
 	void SINCOS();
 	void COS0();
 	void SIN0();
-	void Line0(CDC *pDC, int x1, int y1, int x2, int y2, int wid, COLORREF col);
+	void Line0(CDC *pDC, double x1, double y1, double x2, double y2, int wid, COLORREF col);
 	void FillRect0(CDC* pDC,COLORREF col,CPoint point, int chd,int kd);
 	//{{AFX_MSG(CMyVC3View)
 		// NOTE - the ClassWizard will add and remove member functions here.

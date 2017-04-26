@@ -50,7 +50,12 @@ CMyVC3View::CMyVC3View()
 	}
 	color = RGB(220,220,220);
 	HI = 38;
-	index = 0;
+
+//	index = 0;//do nothing
+	index = 1;//calculate sin(x)
+//	index = 2;//calculate cos(x)
+//	index = 3;//calculate sincos(x)
+
 	width = 4;
 }
 
@@ -74,6 +79,27 @@ void CMyVC3View::OnDraw(CDC* pDC)
 	CMyVC3Doc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	// TODO: add draw code for native data here
+
+	CRect rect;
+	CFont fnBig;
+	CFont* pOldFont;
+	fnBig.CreatePointFont(int(HI*8.0),"Arial",pDC);
+	pOldFont = pDC->SelectObject(&fnBig);
+
+	FillRect0(pDC,color,(0,0),1600,1600);//画背景矩形
+	GetClientRect(&rect);
+	pDC->SetMapMode(MM_LOMETRIC);//设定映射模式
+	pDC->SetViewportOrg(int(rect.right/10),int(rect.bottom/2));//设定坐标原点
+
+	if (index==0)
+	{
+	}
+	else
+	{
+		paint0(pDC);
+	}
+	pDC->SelectObject(pOldFont);
+	fnBig.DeleteObject();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -122,23 +148,23 @@ CMyVC3Doc* CMyVC3View::GetDocument() // non-debug version is inline
 void CMyVC3View::FillRect0(CDC *pDC, COLORREF col, CPoint point, int chd, int kd)
 {
 	CBrush newBrust(col);
-	CBrush* pOldBrust;   
-	pOldBrust = pDC->SelectObject(&newBrust); 
+	CBrush* pOldBrust;
+	pOldBrust = pDC->SelectObject(&newBrust);
 
-	
+
 	pDC->FillRect(CRect(point.x,point.y,point.x+chd,point.y+kd),&newBrust);
-	
+
 	pDC->SelectObject(pOldBrust);//release newBrush, and recover to old Brush
-newBrust.DeleteObject();//delete newBrust object
+	newBrust.DeleteObject();//delete newBrust object
 }
 
-void CMyVC3View::Line0(CDC *pDC, int x1, int y1, int x2, int y2, int wid, COLORREF col)
+void CMyVC3View::Line0(CDC *pDC, double x1, double y1, double x2, double y2, int wid, COLORREF col)
 {
 	CPen siPen;
 	CPen* pOldPen;
 	siPen.CreatePen(PS_SOLID,wid,col);
 	pOldPen = pDC->SelectObject(&siPen);
-	
+
 	pDC->MoveTo(int(HI*x1),int(HI*y1));
 	pDC->LineTo(int(HI*x2),int(HI*y2));
 	pDC->SelectObject(pOldPen);
@@ -169,5 +195,77 @@ void CMyVC3View::SINCOS()
 	{
 		poix[i] = i;//value of angle
 		poiy[i] =sqrt(3.0)* sin(poix[i]*PI/180)*cos(poix[i]*PI/180);
+	}
+}
+
+void CMyVC3View::CoordinateSystem(CDC *pDC)
+{
+	int j,ds;
+	double x1,y1,dsy;
+	char buf[25];
+	CString sc;
+	pDC->SetBkColor(color);//设定文字背景色，与屏幕背景色同色
+	ds = 0;
+	x1 = 0;
+	y1 = 0;
+	wsprintf(buf,"%d",ds);
+	pDC->TextOut(-40,-10,buf,strlen(buf));
+	Line0(pDC,-10,0,75,0,4,RGB(0,0,0));//画横轴坐标线
+	pDC->TextOut(int(HI*72.5),-40,"X(度)");//横坐标名
+
+	for (j = 0;j<24;++j)//设定横坐标标尺
+	{
+		x1+=3;ds+=30;//设横坐标比例1:10
+		Line0(pDC,x1,0,x1,0.5,1,RGB(0,0,0));//画刻度坐标线
+		wsprintf(buf,"%d",ds);
+		if (ds%90 ==0)//90度角的整数倍时
+		{
+			pDC->TextOut(int(HI*x1)-20,int(21.0*HI)+6,buf,strlen(buf));//标注刻度值
+		}
+		else
+		{
+			pDC->TextOut(int(HI*x1)-20,-10,buf,strlen(buf));//标注刻度值
+		}
+	}
+	dsy = 0;
+	Line0(pDC,0,-20,0,20,4,RGB(0,0,0));
+	pDC->TextOut(-60,int(HI*24),"Y");
+	for (j=0;j<5;++j)
+	{
+		y1+=4;dsy+=0.2;//纵坐标比例1:0.05
+		Line0(pDC,0,y1,0.5,y1,1,RGB(0,0,0));//画纵坐标刻度线
+		sc.Format("%3.1f",dsy);
+		pDC->TextOut(-70,int(HI*y1)+20,sc,strlen(sc));//标注刻度值
+	}
+}
+
+void CMyVC3View::paint0(CDC *pDC)
+{
+	int i;
+	switch(index)
+	{
+	case 1:
+		SIN0();
+		break;
+	case 2:
+		COS0();
+		break;
+	case 3:
+		SINCOS();
+		break;
+	}
+
+	CoordinateSystem(pDC);
+
+	for (i=0;i<721;++i)
+	{
+		if (i%90==0)
+		{
+			Line0(pDC,poix[i]/10,-1/0.05,poix[i]/10,1/0.05,1,RGB(0,0,0));
+		}
+		else
+		{
+		}
+		Line0(pDC,poix[i]/10,poiy[i]/0.05,poix[i+1]/10,poiy[i+1]/0.05,width,RGB(255,0,0));
 	}
 }
