@@ -22,8 +22,17 @@ IMPLEMENT_DYNCREATE(CMyVC3View, CView)
 
 BEGIN_MESSAGE_MAP(CMyVC3View, CView)
 	//{{AFX_MSG_MAP(CMyVC3View)
-		// NOTE - the ClassWizard will add and remove mapping macros here.
-		//    DO NOT EDIT what you see in these blocks of generated code!
+	ON_COMMAND(ID_SIN, OnSin)
+	ON_COMMAND(ID_COS, OnCos)
+	ON_COMMAND(ID_SINCOS, OnSincos)
+	ON_COMMAND(ID_WIDTH1, OnWidth1)
+	ON_COMMAND(ID_WIDTH2, OnWidth2)
+	ON_COMMAND(ID_WIDTH3, OnWidth3)
+	ON_COMMAND(ID_WIDTH4, OnWidth4)
+	ON_UPDATE_COMMAND_UI(ID_WIDTH1, OnUpdateWidth1)
+	ON_UPDATE_COMMAND_UI(ID_WIDTH2, OnUpdateWidth2)
+	ON_UPDATE_COMMAND_UI(ID_WIDTH3, OnUpdateWidth3)
+	ON_UPDATE_COMMAND_UI(ID_WIDTH4, OnUpdateWidth4)
 	//}}AFX_MSG_MAP
 	// Standard printing commands
 	ON_COMMAND(ID_FILE_PRINT, CView::OnFilePrint)
@@ -51,10 +60,10 @@ CMyVC3View::CMyVC3View()
 	color = RGB(220,220,220);
 	HI = 38;
 
-//	index = 0;//do nothing
-	index = 1;//calculate sin(x)
+	index = 0;//do nothing
+//	index = 1;//calculate sin(x)
 //	index = 2;//calculate cos(x)
-//	index = 3;//calculate sincos(x)
+//	index = 3;//calculate sin(x)cos(x)
 
 	width = 4;
 }
@@ -268,4 +277,78 @@ void CMyVC3View::paint0(CDC *pDC)
 		}
 		Line0(pDC,poix[i]/10,poiy[i]/0.05,poix[i+1]/10,poiy[i+1]/0.05,width,RGB(255,0,0));
 	}
+}
+
+void CMyVC3View::OnSin() 
+{
+	index = 1;
+	InvalidateRect(NULL,FALSE);//调用CWnd成员函数，更新View
+	
+}
+
+void CMyVC3View::OnCos() 
+{
+	index = 2;
+	InvalidateRect(NULL,FALSE);
+	
+}
+
+void CMyVC3View::OnSincos() 
+{
+	index = 3;
+	InvalidateRect(NULL,FALSE);
+	
+}
+
+void CMyVC3View::OnWidth1() 
+{
+	width = 2;
+	InvalidateRect(NULL,FALSE);
+	
+}
+
+void CMyVC3View::OnWidth2() 
+{
+	width = 4;
+	InvalidateRect(NULL,FALSE);
+	
+}
+
+void CMyVC3View::OnWidth3() 
+{
+	width = 7;
+	InvalidateRect(NULL,FALSE);
+	
+}
+
+void CMyVC3View::OnWidth4() 
+{
+	width = 10;
+	InvalidateRect(NULL,FALSE);
+	
+}
+
+void CMyVC3View::OnUpdateWidth1(CCmdUI* pCmdUI) 
+{
+	// TODO: Add your command update UI handler code here
+	pCmdUI->SetCheck((width==2)? 1:0);//若width=2，菜单上有记号
+	pCmdUI->Enable((index>0)?TRUE:FALSE);//菜单在选定了计算项目后才有效
+}
+
+void CMyVC3View::OnUpdateWidth2(CCmdUI* pCmdUI) 
+{
+	pCmdUI->SetCheck((width==4)? 1:0);
+	pCmdUI->Enable((index>0)?TRUE:FALSE);
+}
+
+void CMyVC3View::OnUpdateWidth3(CCmdUI* pCmdUI) 
+{
+	pCmdUI->SetCheck((width==7)? 1:0);
+	pCmdUI->Enable((index>0)?TRUE:FALSE);	
+}
+
+void CMyVC3View::OnUpdateWidth4(CCmdUI* pCmdUI) 
+{
+	pCmdUI->SetCheck((width==10)? 1:0);
+	pCmdUI->Enable((index>0)?TRUE:FALSE);	
 }

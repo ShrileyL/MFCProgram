@@ -20,8 +20,6 @@ static char THIS_FILE[] = __FILE__;
 BEGIN_MESSAGE_MAP(CMyVC3App, CWinApp)
 	//{{AFX_MSG_MAP(CMyVC3App)
 	ON_COMMAND(ID_APP_ABOUT, OnAppAbout)
-		// NOTE - the ClassWizard will add and remove mapping macros here.
-		//    DO NOT EDIT what you see in these blocks of generated code!
 	//}}AFX_MSG_MAP
 	// Standard file based document commands
 	ON_COMMAND(ID_FILE_NEW, CWinApp::OnFileNew)
@@ -151,4 +149,6 @@ void CMyVC3App::OnAppAbout()
 
 /////////////////////////////////////////////////////////////////////////////
 // CMyVC3App message handlers
+
+
 

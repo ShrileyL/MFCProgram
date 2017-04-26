@@ -55,8 +55,17 @@ protected:
 	void Line0(CDC *pDC, double x1, double y1, double x2, double y2, int wid, COLORREF col);
 	void FillRect0(CDC* pDC,COLORREF col,CPoint point, int chd,int kd);
 	//{{AFX_MSG(CMyVC3View)
-		// NOTE - the ClassWizard will add and remove member functions here.
-		//    DO NOT EDIT what you see in these blocks of generated code !
+	afx_msg void OnSin();
+	afx_msg void OnCos();
+	afx_msg void OnSincos();
+	afx_msg void OnWidth1();
+	afx_msg void OnWidth2();
+	afx_msg void OnWidth3();
+	afx_msg void OnWidth4();
+	afx_msg void OnUpdateWidth1(CCmdUI* pCmdUI);
+	afx_msg void OnUpdateWidth2(CCmdUI* pCmdUI);
+	afx_msg void OnUpdateWidth3(CCmdUI* pCmdUI);
+	afx_msg void OnUpdateWidth4(CCmdUI* pCmdUI);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };
