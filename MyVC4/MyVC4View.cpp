@@ -8,6 +8,8 @@
 #include "MyVC4View.h"
 
 #include "Mouthdlg.h"
+#include "Eyedlg.h"
+#include "Browdlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -23,6 +25,8 @@ IMPLEMENT_DYNCREATE(CMyVC4View, CView)
 BEGIN_MESSAGE_MAP(CMyVC4View, CView)
 	//{{AFX_MSG_MAP(CMyVC4View)
 	ON_COMMAND(ID_MOUTH, OnMouth)
+	ON_COMMAND(ID_MENU, OnMenu)
+	ON_COMMAND(ID_BROW, OnBrow)
 	//}}AFX_MSG_MAP
 	// Standard printing commands
 	ON_COMMAND(ID_FILE_PRINT, CView::OnFilePrint)
@@ -33,7 +37,7 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CMyVC4View construction/destruction
 
-int MouthPos,REyePos,LEyePos,BrowPos,BrowWidth;
+int MouthPos,REyePos,LEyePos,BrowPos,BrowWidth,lteye0;
 
 CMyVC4View::CMyVC4View()
 {
@@ -42,6 +46,7 @@ CMyVC4View::CMyVC4View()
 	LEyePos = 0;
 	BrowPos = 0;
 	BrowWidth = 3;
+	lteye0 = 3;
 
 }
 
@@ -204,5 +209,64 @@ void CMyVC4View::OnMouth()
 		break;
 	default:
 		break;
+	}
+}
+
+////////////////////////////////////////////////////
+int menus[4] = {1,2,3};
+
+static int menuIndex(int x)
+{
+	int j,xj0;
+	for (j=0;j<4;++j)
+	{
+		if (menus[j]==x)
+		{
+			xj0 = j;
+		}
+	}
+	return xj0;
+}
+
+
+void CMyVC4View::OnMenu() 
+{
+	CEyedlg dlg;
+	dlg.m_chkRR = (REyePos<0?TRUE:FALSE);
+	dlg.radIndex = menuIndex(lteye0);
+
+	if (dlg.DoModal()==IDOK)
+	{
+		REyePos = (dlg.m_chkRR?-25:0);
+		lteye0 = menus[dlg.radIndex];
+		switch (lteye0)
+		{
+		case 1:
+			LEyePos = -25;
+			break;
+		case 2:
+			LEyePos = 25;
+			break;
+		case  3:
+			LEyePos = 0;
+			break;
+		}
+		InvalidateRect(NULL,FALSE);
+	}
+}
+
+
+
+void CMyVC4View::OnBrow() 
+{
+	CBrowdlg dlg;
+	dlg.m_nBrowPos = BrowPos;
+	dlg.m_nBrowWidth = BrowWidth;
+	if (dlg.DoModal()==IDOK)
+	{
+		BrowPos = dlg.m_nBrowPos;
+		BrowWidth = dlg.m_nBrowWidth;
+		InvalidateRect(NULL,FALSE);
+	
 	}
 }

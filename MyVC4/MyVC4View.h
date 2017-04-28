@@ -54,6 +54,8 @@ protected:
 	void MyCircle(CDC* pDC,int x0,int y0, int r,int brush);
 	//{{AFX_MSG(CMyVC4View)
 	afx_msg void OnMouth();
+	afx_msg void OnMenu();
+	afx_msg void OnBrow();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

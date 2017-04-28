@@ -134,6 +134,8 @@ BEGIN
         MENUITEM "状态栏(&S)",                  ID_VIEW_STATUS_BAR
     END
     MENUITEM "口型设定",                    ID_MOUTH
+    MENUITEM "目光设定",                    ID_MENU
+    MENUITEM "眉毛设定",                    ID_BROW
     POPUP "帮助(&H)"
     BEGIN
         MENUITEM "关于 MyVC4(&A)...",           ID_APP_ABOUT
@@ -189,6 +191,41 @@ BEGIN
     PUSHBUTTON      "嘴角上翘",IDC_MOUTH_U,33,17,50,14
     PUSHBUTTON      "嘴角下吊",IDC_MOUTH_D,33,40,50,14
     PUSHBUTTON      "正常状态",IDC_MOUTH_N,33,63,50,14
+END
+
+IDD_D_MENU DIALOG DISCARDABLE  0, 0, 248, 112
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "目光设定对话窗口"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,15,91,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,109,91,50,14
+    CONTROL         "右眼光向右",IDC_CHK_RR,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,18,13,56,10
+    GROUPBOX        "左眼目光",IDC_STATIC,21,32,98,48
+    CONTROL         "左眼光向右",IDC_RAD_1,"Button",BS_AUTORADIOBUTTON,30,45,
+                    56,10
+    CONTROL         "左眼光向左",IDC_RAD_2,"Button",BS_AUTORADIOBUTTON,30,56,
+                    56,10
+    CONTROL         "左眼光向前",IDC_RAD_3,"Button",BS_AUTORADIOBUTTON,30,68,
+                    56,10
+END
+
+IDD_D_BROW DIALOG DISCARDABLE  0, 0, 187, 94
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "眉毛设定对话窗口"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,31,73,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,115,73,50,14
+    LTEXT           "位置(-30---30)",IDC_STATIC,12,19,45,8
+    EDITTEXT        IDC_BROWPOS,58,15,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_BROWWIDTH,58,36,40,14,ES_AUTOHSCROLL
+    LTEXT           "粗细(1---15)",IDC_STATIC,16,39,39,8
+    CONTROL         "Spin1",IDC_SPIN1,"msctls_updown32",UDS_ARROWKEYS,101,15,
+                    11,14
+    CONTROL         "Spin2",IDC_SPIN2,"msctls_updown32",UDS_ARROWKEYS,101,35,
+                    11,14
 END
 
 
@@ -252,6 +289,22 @@ BEGIN
     END
 
     IDD_D_MOUTH, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 180
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 87
+    END
+
+    IDD_D_MENU, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 241
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 105
+    END
+
+    IDD_D_BROW, DIALOG
     BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 180
