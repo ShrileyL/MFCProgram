@@ -53,8 +53,7 @@ protected:
 	void MyEllipse(CDC* pDC,int x0,int y0);
 	void MyCircle(CDC* pDC,int x0,int y0, int r,int brush);
 	//{{AFX_MSG(CMyVC4View)
-		// NOTE - the ClassWizard will add and remove member functions here.
-		//    DO NOT EDIT what you see in these blocks of generated code !
+	afx_msg void OnMouth();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

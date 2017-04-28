@@ -7,6 +7,8 @@
 #include "MyVC4Doc.h"
 #include "MyVC4View.h"
 
+#include "Mouthdlg.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -20,8 +22,7 @@ IMPLEMENT_DYNCREATE(CMyVC4View, CView)
 
 BEGIN_MESSAGE_MAP(CMyVC4View, CView)
 	//{{AFX_MSG_MAP(CMyVC4View)
-		// NOTE - the ClassWizard will add and remove mapping macros here.
-		//    DO NOT EDIT what you see in these blocks of generated code!
+	ON_COMMAND(ID_MOUTH, OnMouth)
 	//}}AFX_MSG_MAP
 	// Standard printing commands
 	ON_COMMAND(ID_FILE_PRINT, CView::OnFilePrint)
@@ -128,7 +129,7 @@ CBrush* pOldBrush;
 int x1,y1,x2,y2;
 eiBrush.CreateSolidBrush(RGB(240,240,240));
 pOldBrush = pDC->SelectObject(&eiBrush);
-x1 = x0 + 55; y1 = y0 - 35;
+x1 = x0+55; y1 = y0-35;
 x2 = x1-55;y2 = y0+35;
 pDC->Ellipse(x1,y1,x2,y2);
 pDC->SelectObject(pOldBrush);
@@ -182,4 +183,26 @@ MyPolygon(pDC,x,y);
 MyLine(pDC,x,y+20,0,42,2,RGB(120,120,120));
 MyLine(pDC,x-40,y+95,40,MouthPos,8,RGB(110,110,110));
 MyLine(pDC,x+40,y+95,-40,MouthPos,8,RGB(110,110,110));
+}
+
+void CMyVC4View::OnMouth() 
+{
+	// TODO: Add your command handler code here
+	CMouthdlg dlg;
+	switch(dlg.DoModal()){
+	case IDC_MOUTH_U:
+		MouthPos = 12;
+		InvalidateRect(NULL,FALSE);
+		break;
+	case IDC_MOUTH_D:
+		MouthPos = -12;
+		InvalidateRect(NULL,FALSE);
+		break;
+	case IDC_MOUTH_N:
+		MouthPos = 0;
+		InvalidateRect(NULL,FALSE);
+		break;
+	default:
+		break;
+	}
 }
