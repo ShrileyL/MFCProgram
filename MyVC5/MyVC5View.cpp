@@ -37,7 +37,7 @@ END_MESSAGE_MAP()
 
 CMyVC5View::CMyVC5View()
 {
-	// TODO: add construction code here
+	print = 0;//print=0表示在屏幕显示，print=1表示打印输出或者打印预览
 
 }
 
@@ -74,6 +74,20 @@ void CMyVC5View::OnDraw(CDC* pDC)
 		}
 	}
 	*/
+
+	pDC->SetMapMode(MM_LOMETRIC);//单位：0.1mm
+	CRect rect;
+	GetClientRect(&rect);
+	if (print == 0)
+	{
+		pDC->SetViewportOrg(rect.right/2,rect.bottom/2);
+	}
+	else if (print==1)
+	{
+		pDC->SetViewportOrg(offsetx,offsety);
+	}
+
+	pDC->Rectangle(-250,200,250,-200);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -82,17 +96,29 @@ void CMyVC5View::OnDraw(CDC* pDC)
 BOOL CMyVC5View::OnPreparePrinting(CPrintInfo* pInfo)
 {
 	// default preparation
+	pInfo->SetMinPage(1);
+	pInfo->SetMaxPage(5);
+
 	return DoPreparePrinting(pInfo);
 }
 
-void CMyVC5View::OnBeginPrinting(CDC* /*pDC*/, CPrintInfo* /*pInfo*/)
+void CMyVC5View::OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo)
 {
-	// TODO: add extra initialization before printing
+	int pageheight = pDC->GetDeviceCaps(VERTSIZE);//得到打印纸高度（mm)
+	int pagewidth = pDC->GetDeviceCaps(HORZSIZE);//打印纸宽度
+	int logpixelx = pDC->GetDeviceCaps(LOGPIXELSX);//实际设备Y方向每逻辑英寸的像素数量
+	int logpixely = pDC->GetDeviceCaps(LOGPIXELSY);//实际设备X方向每逻辑英寸的像素数量
+
+	offsetx = int(pagewidth*logpixelx/(50.8));//确定坐标原点X方向的偏移量
+	offsety = int(pageheight*logpixely/(50.8));//
+	print = 1;//打印状态
+	Invalidate();
 }
 
 void CMyVC5View::OnEndPrinting(CDC* /*pDC*/, CPrintInfo* /*pInfo*/)
 {
-	// TODO: add cleanup after printing
+	print = 0;
+	Invalidate();
 }
 
 /////////////////////////////////////////////////////////////////////////////

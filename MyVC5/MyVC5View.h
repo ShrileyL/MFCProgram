@@ -37,6 +37,9 @@ public:
 
 // Implementation
 public:
+	int print;
+	int offsety;
+	int offsetx;
 	virtual ~CMyVC5View();
 #ifdef _DEBUG
 	virtual void AssertValid() const;
