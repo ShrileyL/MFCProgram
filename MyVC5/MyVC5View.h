@@ -47,12 +47,16 @@ protected:
 
 // Generated message map functions
 protected:
+	void Bit4(CDC* pDC, CPoint point);
 	void Bit3(CDC* pDC, int dx);
 	void Bit2(CDC* pDC);
 	void Bit1(CDC* pDC);
 	//{{AFX_MSG(CMyVC5View)
-		// NOTE - the ClassWizard will add and remove member functions here.
-		//    DO NOT EDIT what you see in these blocks of generated code !
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
+	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+	afx_msg void OnRButtonDblClk(UINT nFlags, CPoint point);
+	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

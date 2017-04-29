@@ -20,8 +20,11 @@ IMPLEMENT_DYNCREATE(CMyVC5View, CView)
 
 BEGIN_MESSAGE_MAP(CMyVC5View, CView)
 	//{{AFX_MSG_MAP(CMyVC5View)
-		// NOTE - the ClassWizard will add and remove mapping macros here.
-		//    DO NOT EDIT what you see in these blocks of generated code!
+	ON_WM_LBUTTONDOWN()
+	ON_WM_LBUTTONUP()
+	ON_WM_MOUSEMOVE()
+	ON_WM_RBUTTONDBLCLK()
+	ON_WM_KEYDOWN()
 	//}}AFX_MSG_MAP
 	// Standard printing commands
 	ON_COMMAND(ID_FILE_PRINT, CView::OnFilePrint)
@@ -58,7 +61,7 @@ void CMyVC5View::OnDraw(CDC* pDC)
 	CMyVC5Doc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	// TODO: add draw code for native data here
-	Bit1(pDC);
+/*	Bit1(pDC);
 	Bit2(pDC);
 	int i,j;
 	j =0;
@@ -70,6 +73,7 @@ void CMyVC5View::OnDraw(CDC* pDC)
 			Bit3(pDC,j);
 		}
 	}
+	*/
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -146,4 +150,92 @@ void CMyVC5View::Bit3(CDC *pDC, int dx)
 	pOldBitmap = MemDC.SelectObject(&bitmap);
 	pDC->BitBlt(15,800-dx,733,273,&MemDC,0,0,SRCCOPY);
 	MemDC.SelectObject(pOldBitmap);
+}
+
+void CMyVC5View::Bit4(CDC *pDC, CPoint point)
+{
+	CBitmap bitmap,*pOldBitmap;
+	CDC MemDC;//定义一个内存设备环境
+	bitmap.LoadBitmap(IDB_BITMAP4);
+	MemDC.CreateCompatibleDC(pDC);
+	pOldBitmap = MemDC.SelectObject(&bitmap);
+	pDC->BitBlt(point.x-11,point.y-11,22,22,&MemDC,0,0,SRCCOPY);
+	MemDC.SelectObject(pOldBitmap);
+}
+
+///////////////////////////////////////////////////////////////
+BOOL ButtonDown = FALSE;
+
+void CMyVC5View::OnLButtonDown(UINT nFlags, CPoint point) 
+{
+	CDC* pDC= GetDC();
+	Bit4(pDC,point);
+	ReleaseDC(pDC);
+	ButtonDown = TRUE;
+	
+	//CView::OnLButtonDown(nFlags, point);
+}
+
+void CMyVC5View::OnLButtonUp(UINT nFlags, CPoint point) 
+{
+
+	ButtonDown = FALSE;
+//	CView::OnLButtonUp(nFlags, point);
+}
+
+void CMyVC5View::OnMouseMove(UINT nFlags, CPoint point) 
+{
+	CDC* pDC= GetDC();
+	if (ButtonDown==TRUE)
+	{
+		Bit4(pDC,point);
+	}
+	ReleaseDC(pDC);
+	
+	//CView::OnMouseMove(nFlags, point);
+}
+
+void CMyVC5View::OnRButtonDblClk(UINT nFlags, CPoint point) 
+{
+	CDC* pDC= GetDC();
+	CRect rect;
+	CBrush eraser(GetSysColor(COLOR_WINDOW));
+	GetClientRect(&rect);
+	pDC->FillRect(&rect,&eraser);
+	ReleaseDC(pDC);
+	
+	//CView::OnRButtonDblClk(nFlags, point);
+}
+
+void CMyVC5View::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) 
+{
+	CDC* pDC= GetDC();
+	CPoint point;
+	GetCursorPos(&point);
+	switch (nChar)
+	{
+	case VK_LEFT:
+		point.x -= 3;
+		break;
+	case VK_RIGHT:
+		point.x += 3;
+		break;
+	case VK_UP:
+		point.y -= 3;
+		break;
+	case VK_DOWN:
+		point.y += 3;
+		break;
+	default:
+		break;
+	}
+	
+	SetCursorPos(point.x,point.y);
+	if (GetKeyState(VK_SHIFT)<0)
+	{
+		ScreenToClient(&point);
+		Bit4(pDC,point);
+	}
+	ReleaseDC(pDC);
+	//CView::OnKeyDown(nChar, nRepCnt, nFlags);
 }

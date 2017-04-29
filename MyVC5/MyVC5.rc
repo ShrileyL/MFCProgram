@@ -79,6 +79,7 @@ IDR_MAINFRAME           BITMAP  MOVEABLE PURE   "res\\Toolbar.bmp"
 IDB_BITMAP1             BITMAP  DISCARDABLE     "res\\bitmap1.bmp"
 IDB_BITMAP2             BITMAP  DISCARDABLE     "res\\bitmap2.bmp"
 IDB_BITMAP3             BITMAP  DISCARDABLE     "res\\bitmap3.bmp"
+IDB_BITMAP4             BITMAP  DISCARDABLE     "res\\bitmap4.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //
