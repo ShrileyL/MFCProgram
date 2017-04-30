@@ -7,6 +7,8 @@
 #include "MyVC5Doc.h"
 #include "MyVC5View.h"
 
+#include "Rectnum.h"//多页打印
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -25,6 +27,7 @@ BEGIN_MESSAGE_MAP(CMyVC5View, CView)
 	ON_WM_MOUSEMOVE()
 	ON_WM_RBUTTONDBLCLK()
 	ON_WM_KEYDOWN()
+	ON_COMMAND(ID_NUMBER, OnNumber)
 	//}}AFX_MSG_MAP
 	// Standard printing commands
 	ON_COMMAND(ID_FILE_PRINT, CView::OnFilePrint)
@@ -38,6 +41,7 @@ END_MESSAGE_MAP()
 CMyVC5View::CMyVC5View()
 {
 	print = 0;//print=0表示在屏幕显示，print=1表示打印输出或者打印预览
+	number = 1;
 
 }
 
@@ -75,6 +79,8 @@ void CMyVC5View::OnDraw(CDC* pDC)
 	}
 	*/
 
+	//打印一个矩形
+	/*
 	pDC->SetMapMode(MM_LOMETRIC);//单位：0.1mm
 	CRect rect;
 	GetClientRect(&rect);
@@ -88,6 +94,35 @@ void CMyVC5View::OnDraw(CDC* pDC)
 	}
 
 	pDC->Rectangle(-250,200,250,-200);
+	*/
+
+	//多页打印
+	pDC->SetMapMode(MM_LOMETRIC);
+	CRect rect;
+	char s[10];
+	GetClientRect(&rect);
+	if (print == 0)
+	{
+		pDC->SetViewportOrg(rect.right/2,rect.bottom/2);
+	}
+	else if (print==1)
+	{
+		pDC->SetViewportOrg(offsetx,offsety);
+	}
+
+	if (number ==1)
+	{pDC->Rectangle-250,200,250,-200;	}
+
+	if (number>1)
+	{
+		for (int x = 0;x<number;++x)
+		{
+			pDC->Rectangle(-100,-(x*200+70),100,-(x*200+200));
+		}
+	}
+
+	wsprintf(s,"%d",number);
+	pDC->TextOut(0,0,s);//在坐标原点输出矩形个数
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -95,15 +130,16 @@ void CMyVC5View::OnDraw(CDC* pDC)
 
 BOOL CMyVC5View::OnPreparePrinting(CPrintInfo* pInfo)
 {
-	// default preparation
+	// 设置打印页数范围
 	pInfo->SetMinPage(1);
-	pInfo->SetMaxPage(5);
+	pInfo->SetMaxPage(numpages);
 
 	return DoPreparePrinting(pInfo);
 }
 
 void CMyVC5View::OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo)
 {
+	/*
 	int pageheight = pDC->GetDeviceCaps(VERTSIZE);//得到打印纸高度（mm)
 	int pagewidth = pDC->GetDeviceCaps(HORZSIZE);//打印纸宽度
 	int logpixelx = pDC->GetDeviceCaps(LOGPIXELSX);//实际设备Y方向每逻辑英寸的像素数量
@@ -112,6 +148,21 @@ void CMyVC5View::OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo)
 	offsetx = int(pagewidth*logpixelx/(50.8));//确定坐标原点X方向的偏移量
 	offsety = int(pageheight*logpixely/(50.8));//
 	print = 1;//打印状态
+	*/
+
+	int pageheight = pDC->GetDeviceCaps(VERTSIZE);
+	double rectheight = 20;//矩形高度+间距=20mm
+	int pnum  = int(0.5*pageheight/rectheight);//第一页页显示的矩形个数
+	if (number<pnum)//单页打印
+	{
+		numpages = 1;
+	} 
+	else//多页打印
+	{
+		numpages = (int)((number-pnum)*rectheight/pageheight)+2;
+	}
+
+	print = 1;
 	Invalidate();
 }
 
@@ -264,4 +315,32 @@ void CMyVC5View::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	}
 	ReleaseDC(pDC);
 	//CView::OnKeyDown(nChar, nRepCnt, nFlags);
+}
+
+void CMyVC5View::OnNumber() 
+{
+	CRectnum dlg;
+	if (dlg.DoModal()==IDOK)
+	{
+		number = dlg.m_number;//将对话框中输入的矩形个数保存在View中number中
+		Invalidate();
+	}
+	
+}
+
+void CMyVC5View::OnPrepareDC(CDC* pDC, CPrintInfo* pInfo) 
+{
+	if (pDC->IsPrinting())
+	{
+		int pageheight = pDC->GetDeviceCaps(VERTSIZE);
+		int pagewidth = pDC->GetDeviceCaps(HORZSIZE);
+		int logpixelsx = pDC->GetDeviceCaps(LOGPIXELSX);//得到打印机水平分辨率
+		int logpixelsy = pDC->GetDeviceCaps(LOGPIXELSY);//得到打印机垂直分辨率
+		double rectheight = 20;//矩形高度+间距
+		int pnum = int(0.5*pageheight/rectheight);
+		offsetx = int(pagewidth*logpixelsx/(2*25.4));
+		offsety = int((0.5*pageheight-pageheight*(pInfo->m_nCurPage-1))*logpixelsy/25.4);
+	}
+	
+	CView::OnPrepareDC(pDC, pInfo);
 }

@@ -29,6 +29,7 @@ public:
 	public:
 	virtual void OnDraw(CDC* pDC);  // overridden to draw this view
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
+	virtual void OnPrepareDC(CDC* pDC, CPrintInfo* pInfo = NULL);
 	protected:
 	virtual BOOL OnPreparePrinting(CPrintInfo* pInfo);
 	virtual void OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo);
@@ -37,6 +38,7 @@ public:
 
 // Implementation
 public:
+	int numpages;
 	int print;
 	int offsety;
 	int offsetx;
@@ -50,6 +52,7 @@ protected:
 
 // Generated message map functions
 protected:
+	int number;
 	void Bit4(CDC* pDC, CPoint point);
 	void Bit3(CDC* pDC, int dx);
 	void Bit2(CDC* pDC);
@@ -60,6 +63,7 @@ protected:
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 	afx_msg void OnRButtonDblClk(UINT nFlags, CPoint point);
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
+	afx_msg void OnNumber();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };
