@@ -8,6 +8,8 @@
 #include "LinkDataDoc.h"
 #include "LinkDataView.h"
 
+#include "fltdlg.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -135,25 +137,66 @@ void CLinkDataView::OnRecordDelete()
 
 void CLinkDataView::OnSortId() 
 {
-	// TODO: Add your command handler code here
+	m_pSet->Close();
+	m_pSet->m_strSort = "ID";
+	m_pSet->Open();
+	UpdateData(FALSE);
 	
 }
 
 void CLinkDataView::OnSortLength() 
 {
-	// TODO: Add your command handler code here
+	m_pSet->Close();
+	m_pSet->m_strSort = "LENGTH";
+	m_pSet->Open();
+	UpdateData(FALSE);
 	
 }
 
 void CLinkDataView::OnFilterId() 
 {
-	// TODO: Add your command handler code here
+	Cfltdlg dlg;
+	int index;
+	if (dlg.DoModal()==IDOK)
+	{
+		sscanf(dlg.m_fltvalue,"%d",&index);
+		m_pSet->Close();
+		m_pSet->m_strFilter.Format("ID=%d",index);
+		m_pSet->Open();
+		int count = m_pSet->GetRecordCount();//get record's number
+		if (count == 0)
+		{
+			MessageBox("无匹配记录！");
+			m_pSet->Close();
+			m_pSet->m_strFilter = "";
+			m_pSet->Open();
+		}
+		UpdateData(FALSE);
+	}
 	
 }
 
 void CLinkDataView::OnFilterFactory() 
 {
-	// TODO: Add your command handler code here
+	CString str,str1;
+	str1="FACTORY";
+	Cfltdlg dlg;
+	if (dlg.DoModal()==IDOK)
+	{
+		str = str1+"='"+dlg.m_fltvalue+"'";
+		m_pSet->Close();
+		m_pSet->m_strFilter=str;
+		m_pSet->Open();
+		int count = m_pSet->GetRecordCount();//get record's number
+		if (count == 0)
+		{
+			MessageBox("无匹配记录！");
+			m_pSet->Close();
+			m_pSet->m_strFilter = "";
+			m_pSet->Open();
+		}
+		UpdateData(FALSE);
+	}
 	
 }
 

@@ -28,7 +28,7 @@ CLinkDataSet::CLinkDataSet(CDatabase* pdb)
 	m_factory = _T("");
 	m_nFields = 6;
 	//}}AFX_FIELD_INIT
-	m_nDefaultType = snapshot;
+	m_nDefaultType = snapshot;//快照，不是动态更新
 }
 
 CString CLinkDataSet::GetDefaultConnect()
@@ -41,7 +41,7 @@ CString CLinkDataSet::GetDefaultSQL()
 	return _T("[example]");
 }
 
-void CLinkDataSet::DoFieldExchange(CFieldExchange* pFX)
+void CLinkDataSet::DoFieldExchange(CFieldExchange* pFX)//将控件中的数据与dataset中的数据连起来
 {
 	//{{AFX_FIELD_MAP(CLinkDataSet)
 	pFX->SetFieldType(CFieldExchange::outputColumn);

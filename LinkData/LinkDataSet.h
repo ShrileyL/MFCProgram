@@ -9,7 +9,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-class CLinkDataSet : public CRecordset
+class CLinkDataSet : public CRecordset//继承CRecordset，根据数据库中的数据集，创建一个新的数据集
 {
 public:
 	CLinkDataSet(CDatabase* pDatabase = NULL);
