@@ -2,14 +2,14 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#if !defined(AFX_ODBC_DAODOC_H__3EE0A2E9_7E8D_4F1A_A343_A5DD8002F2ED__INCLUDED_)
-#define AFX_ODBC_DAODOC_H__3EE0A2E9_7E8D_4F1A_A343_A5DD8002F2ED__INCLUDED_
+#if !defined(AFX_ODBC_DAODOC_H__9896F1AC_ACB6_466D_A44D_95AED75E3AA7__INCLUDED_)
+#define AFX_ODBC_DAODOC_H__9896F1AC_ACB6_466D_A44D_95AED75E3AA7__INCLUDED_
 
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "Carset.h"//加入数据库类头文件
+#include "Carset.h" //加入数据库类头文件
 
 class CODBC_DAODoc : public CDocument
 {
@@ -56,4 +56,4 @@ protected:
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
 
-#endif // !defined(AFX_ODBC_DAODOC_H__3EE0A2E9_7E8D_4F1A_A343_A5DD8002F2ED__INCLUDED_)
+#endif // !defined(AFX_ODBC_DAODOC_H__9896F1AC_ACB6_466D_A44D_95AED75E3AA7__INCLUDED_)

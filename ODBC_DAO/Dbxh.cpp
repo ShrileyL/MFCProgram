@@ -1,9 +1,9 @@
-// Dbxh1.cpp : implementation file
+// Dbxh.cpp : implementation file
 //
 
 #include "stdafx.h"
 #include "ODBC_DAO.h"
-#include "Dbxh1.h"
+#include "Dbxh.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

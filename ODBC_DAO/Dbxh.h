@@ -1,10 +1,10 @@
-#if !defined(AFX_DBXH1_H__A277359A_136D_4742_A533_4A1318EB2218__INCLUDED_)
-#define AFX_DBXH1_H__A277359A_136D_4742_A533_4A1318EB2218__INCLUDED_
+#if !defined(AFX_DBXH_H__F28DBEFF_ED57_4774_ABAA_926C108989FE__INCLUDED_)
+#define AFX_DBXH_H__F28DBEFF_ED57_4774_ABAA_926C108989FE__INCLUDED_
 
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
-// Dbxh1.h : header file
+// Dbxh.h : header file
 //
 
 /////////////////////////////////////////////////////////////////////////////
@@ -18,7 +18,7 @@ public:
 
 // Dialog Data
 	//{{AFX_DATA(CDbxh)
-	enum { IDD = IDD_XH };
+	enum { IDD = IDD_DIALOG1 };
 	int		m_xh;
 	//}}AFX_DATA
 
@@ -43,4 +43,4 @@ protected:
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
 
-#endif // !defined(AFX_DBXH1_H__A277359A_136D_4742_A533_4A1318EB2218__INCLUDED_)
+#endif // !defined(AFX_DBXH_H__F28DBEFF_ED57_4774_ABAA_926C108989FE__INCLUDED_)

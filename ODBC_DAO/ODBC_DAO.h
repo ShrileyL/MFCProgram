@@ -1,8 +1,8 @@
 // ODBC_DAO.h : main header file for the ODBC_DAO application
 //
 
-#if !defined(AFX_ODBC_DAO_H__CCD075C7_45D8_42FF_8EFC_E1F5DC84ACB7__INCLUDED_)
-#define AFX_ODBC_DAO_H__CCD075C7_45D8_42FF_8EFC_E1F5DC84ACB7__INCLUDED_
+#if !defined(AFX_ODBC_DAO_H__B104C006_F251_44C0_8925_C87589B3BC96__INCLUDED_)
+#define AFX_ODBC_DAO_H__B104C006_F251_44C0_8925_C87589B3BC96__INCLUDED_
 
 #if _MSC_VER > 1000
 #pragma once
@@ -46,4 +46,4 @@ public:
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
 
-#endif // !defined(AFX_ODBC_DAO_H__CCD075C7_45D8_42FF_8EFC_E1F5DC84ACB7__INCLUDED_)
+#endif // !defined(AFX_ODBC_DAO_H__B104C006_F251_44C0_8925_C87589B3BC96__INCLUDED_)

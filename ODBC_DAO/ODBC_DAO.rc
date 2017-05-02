@@ -52,7 +52,6 @@ BEGIN
     "#endif //_WIN32\r\n"
     "#include ""res\\ODBC_DAO.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
     "#include ""l.chs\\afxres.rc""          // Standard components\r\n"
-    "#include ""l.chs\\afxprint.rc""        // printing/print preview resources\r\n"
     "#endif\r\n"
     "\0"
 END
@@ -112,10 +111,6 @@ BEGIN
         MENUITEM "保存(&S)\tCtrl+S",            ID_FILE_SAVE
         MENUITEM "另存为(&A)...",               ID_FILE_SAVE_AS
         MENUITEM SEPARATOR
-        MENUITEM "打印(&P)...\tCtrl+P",         ID_FILE_PRINT
-        MENUITEM "打印预览(&V)",                ID_FILE_PRINT_PREVIEW
-        MENUITEM "打印设置(&R)...",             ID_FILE_PRINT_SETUP
-        MENUITEM SEPARATOR
         MENUITEM "最近文件",                    ID_FILE_MRU_FILE1, GRAYED
         MENUITEM SEPARATOR
         MENUITEM "退出(&X)",                    ID_APP_EXIT
@@ -133,12 +128,19 @@ BEGIN
         MENUITEM "工具栏(&T)",                  ID_VIEW_TOOLBAR
         MENUITEM "状态栏(&S)",                  ID_VIEW_STATUS_BAR
     END
-    POPUP "数据库操作(ODBC)"
+    POPUP "数据库库操作(ODBC)"
     BEGIN
         MENUITEM "读取数据",                    ID_DB_READ
         MENUITEM "写入数据",                    ID_DB_WRITE
         MENUITEM "添加表",                      ID_TABLE_ADD
         MENUITEM "添加记录",                    ID_RECORD_ADD
+    END
+    POPUP "数据库操作(DAO)"
+    BEGIN
+        MENUITEM "读取数据",                    ID_DAO_READ
+        MENUITEM "写入数据",                    ID_DAO_WRITE
+        MENUITEM "编辑数据",                    ID_DAO_EDIT
+        MENUITEM "创建数据库",                  ID_CREATE_DB
     END
     POPUP "帮助(&H)"
     BEGIN
@@ -157,7 +159,6 @@ BEGIN
     "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
     "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
     "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
-    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL
     "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
     "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
     "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
@@ -187,35 +188,50 @@ BEGIN
     DEFPUSHBUTTON   "确定",IDOK,178,7,50,14,WS_GROUP
 END
 
-IDD_XH DIALOG DISCARDABLE  0, 0, 187, 94
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "序号对话框"
-FONT 10, "System"
-BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,27,62,50,14
-    PUSHBUTTON      "Cancel",IDCANCEL,101,62,50,14
-    LTEXT           "数据库记录序号：",IDC_STATIC,23,32,73,8
-    EDITTEXT        IDC_XH,99,30,40,14,ES_AUTOHSCROLL
-END
-
-IDD_DIALOG1 DIALOG DISCARDABLE  0, 0, 239, 119
+IDD_DIALOG1 DIALOG DISCARDABLE  0, 0, 187, 94
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Dialog"
 FONT 10, "System"
 BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,89,98,50,14
-    LTEXT           "ID:",IDC_STATIC,19,19,10,8
-    LTEXT           "长：",IDC_STATIC,19,44,17,8
-    LTEXT           "高：",IDC_STATIC,21,68,17,8
-    EDITTEXT        IDC_ID,41,16,40,14,ES_AUTOHSCROLL
-    EDITTEXT        IDC_LENGTH,43,41,40,14,ES_AUTOHSCROLL
-    EDITTEXT        IDC_HEIGHT,44,65,40,14,ES_AUTOHSCROLL
-    LTEXT           "名称：",IDC_STATIC,109,17,25,8
-    LTEXT           "宽：",IDC_STATIC,111,42,17,8
-    LTEXT           "生产厂家：",IDC_STATIC,98,65,41,8
-    EDITTEXT        IDC_NAME,140,15,83,14,ES_AUTOHSCROLL
-    EDITTEXT        IDC_WIDTH,140,40,40,14,ES_AUTOHSCROLL
-    EDITTEXT        IDC_FACTORY,141,62,79,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,34,64,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,105,63,50,14
+    LTEXT           "数据库记录序号：",IDC_STATIC,25,31,65,8
+    EDITTEXT        IDC_XH,117,27,40,14,ES_AUTOHSCROLL
+END
+
+IDD_DIALOG2 DIALOG DISCARDABLE  0, 0, 278, 124
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,108,103,50,14
+    LTEXT           "ID:",IDC_STATIC,18,21,10,8
+    LTEXT           "长：",IDC_STATIC,19,48,17,8
+    LTEXT           "高：",IDC_STATIC,20,75,17,8
+    LTEXT           "名称：",IDC_STATIC,114,19,25,8
+    LTEXT           "宽：",IDC_STATIC,114,48,17,8
+    LTEXT           "生产厂家：",IDC_STATIC,109,75,41,8
+    EDITTEXT        IDC_ID,38,18,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_LENGTH,40,46,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_HEIGHT,39,74,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_NAME,141,15,109,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_WIDTH,142,45,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_FACTORY,153,74,108,14,ES_AUTOHSCROLL
+END
+
+IDD_DIALOG3 DIALOG DISCARDABLE  0, 0, 200, 120
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,24,99,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,103,99,50,14
+    LTEXT           "生产厂家：",IDC_STATIC,18,21,41,8
+    EDITTEXT        IDC_FACTORY,79,18,104,14,ES_AUTOHSCROLL
+    LTEXT           "车名：",IDC_STATIC,19,54,25,8
+    LISTBOX         IDC_LIST1,55,45,85,40,LBS_SORT | LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "查询",IDC_QUERY,148,58,34,14
 END
 
 
@@ -278,7 +294,7 @@ BEGIN
         BOTTOMMARGIN, 48
     END
 
-    IDD_XH, DIALOG
+    IDD_DIALOG1, DIALOG
     BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 180
@@ -286,12 +302,20 @@ BEGIN
         BOTTOMMARGIN, 87
     END
 
-    IDD_DIALOG1, DIALOG
+    IDD_DIALOG2, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 232
+        RIGHTMARGIN, 271
         TOPMARGIN, 7
-        BOTTOMMARGIN, 112
+        BOTTOMMARGIN, 117
+    END
+
+    IDD_DIALOG3, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 193
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 113
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -330,10 +354,6 @@ BEGIN
     ID_FILE_CLOSE           "关闭活动文档\n关闭"
     ID_FILE_SAVE            "保存活动文档\n保存"
     ID_FILE_SAVE_AS         "将活动文档以一个新文件名保存\n另存为"
-    ID_FILE_PAGE_SETUP      "改变打印选项\n页面设置"
-    ID_FILE_PRINT_SETUP     "改变打印机及打印选项\n打印设置"
-    ID_FILE_PRINT           "打印活动文档\n打印"
-    ID_FILE_PRINT_PREVIEW   "显示整页\n打印预览"
 END
 
 STRINGTABLE DISCARDABLE 
@@ -411,11 +431,6 @@ BEGIN
     AFX_IDS_SCTASKLIST      "激活任务表"
 END
 
-STRINGTABLE DISCARDABLE 
-BEGIN
-    AFX_IDS_PREVIEW_CLOSE   "关闭打印预览模式\n取消预阅"
-END
-
 #endif    // Chinese (P.R.C.) resources
 /////////////////////////////////////////////////////////////////////////////
 
@@ -438,7 +453,6 @@ LANGUAGE 4, 2
 #endif //_WIN32
 #include "res\ODBC_DAO.rc2"  // non-Microsoft Visual C++ edited resources
 #include "l.chs\afxres.rc"          // Standard components
-#include "l.chs\afxprint.rc"        // printing/print preview resources
 #endif
 
 /////////////////////////////////////////////////////////////////////////////

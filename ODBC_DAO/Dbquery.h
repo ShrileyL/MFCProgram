@@ -1,37 +1,32 @@
-
-#if !defined(AFX_DISPDATA_H__278752B9_B635_4443_BD75_50C5F990784B__INCLUDED_)
-#define AFX_DISPDATA_H__278752B9_B635_4443_BD75_50C5F990784B__INCLUDED_
+#if !defined(AFX_DBQUERY_H__BDE906FF_921B_41ED_9055_8B6D39FC114F__INCLUDED_)
+#define AFX_DBQUERY_H__BDE906FF_921B_41ED_9055_8B6D39FC114F__INCLUDED_
 
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
-// Dispdata.h : header file
+// Dbquery.h : header file
 //
 
 /////////////////////////////////////////////////////////////////////////////
-// CDispdata dialog
+// CDbquery dialog
 
-class CDispdata : public CDialog
+class CDbquery : public CDialog
 {
 // Construction
 public:
-	CDispdata(CWnd* pParent = NULL);   // standard constructor
+	CDbquery(CWnd* pParent = NULL);   // standard constructor
 
 // Dialog Data
-	//{{AFX_DATA(CDispdata)
-	enum { IDD = IDD_DIALOG2 };
+	//{{AFX_DATA(CDbquery)
+	enum { IDD = IDD_DIALOG3 };
+	CListBox	m_list1;
 	CString	m_factory;
-	double	m_height;
-	int		m_id;
-	double	m_length;
-	CString	m_name;
-	double	m_width;
 	//}}AFX_DATA
 
 
 // Overrides
 	// ClassWizard generated virtual function overrides
-	//{{AFX_VIRTUAL(CDispdata)
+	//{{AFX_VIRTUAL(CDbquery)
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	//}}AFX_VIRTUAL
@@ -40,8 +35,8 @@ public:
 protected:
 
 	// Generated message map functions
-	//{{AFX_MSG(CDispdata)
-		// NOTE: the ClassWizard will add member functions here
+	//{{AFX_MSG(CDbquery)
+	afx_msg void OnQuery();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };
@@ -49,4 +44,4 @@ protected:
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
 
-#endif // !defined(AFX_DISPDATA_H__278752B9_B635_4443_BD75_50C5F990784B__INCLUDED_)
+#endif // !defined(AFX_DBQUERY_H__BDE906FF_921B_41ED_9055_8B6D39FC114F__INCLUDED_)

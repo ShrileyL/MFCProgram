@@ -3,8 +3,8 @@
 //      are changed infrequently
 //
 
-#if !defined(AFX_STDAFX_H__FD7D66D4_2CFF_4F46_B1C3_184449A80E13__INCLUDED_)
-#define AFX_STDAFX_H__FD7D66D4_2CFF_4F46_B1C3_184449A80E13__INCLUDED_
+#if !defined(AFX_STDAFX_H__50E7EB2B_E28C_4B32_AE3D_A8BED5D27092__INCLUDED_)
+#define AFX_STDAFX_H__50E7EB2B_E28C_4B32_AE3D_A8BED5D27092__INCLUDED_
 
 #if _MSC_VER > 1000
 #pragma once
@@ -20,11 +20,13 @@
 #include <afxcmn.h>			// MFC support for Windows Common Controls
 
 #include <afxdb.h>	//support for database
+#include <afxdao.h> //support for MFC DAO
 
 #endif // _AFX_NO_AFXCMN_SUPPORT
+
 
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
 
-#endif // !defined(AFX_STDAFX_H__FD7D66D4_2CFF_4F46_B1C3_184449A80E13__INCLUDED_)
+#endif // !defined(AFX_STDAFX_H__50E7EB2B_E28C_4B32_AE3D_A8BED5D27092__INCLUDED_)

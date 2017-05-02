@@ -2,8 +2,8 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#if !defined(AFX_ODBC_DAOVIEW_H__167C6298_4C21_4754_961B_FC7ACB01075B__INCLUDED_)
-#define AFX_ODBC_DAOVIEW_H__167C6298_4C21_4754_961B_FC7ACB01075B__INCLUDED_
+#if !defined(AFX_ODBC_DAOVIEW_H__377E4547_2DB1_4EB5_8345_D007C1930D21__INCLUDED_)
+#define AFX_ODBC_DAOVIEW_H__377E4547_2DB1_4EB5_8345_D007C1930D21__INCLUDED_
 
 #if _MSC_VER > 1000
 #pragma once
@@ -30,9 +30,6 @@ public:
 	virtual void OnDraw(CDC* pDC);  // overridden to draw this view
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 	protected:
-	virtual BOOL OnPreparePrinting(CPrintInfo* pInfo);
-	virtual void OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo);
-	virtual void OnEndPrinting(CDC* pDC, CPrintInfo* pInfo);
 	//}}AFX_VIRTUAL
 
 // Implementation
@@ -50,8 +47,12 @@ protected:
 	//{{AFX_MSG(CODBC_DAOView)
 	afx_msg void OnDbRead();
 	afx_msg void OnDbWrite();
-	afx_msg void OnTableAdd();
 	afx_msg void OnRecordAdd();
+	afx_msg void OnTableAdd();
+	afx_msg void OnDaoRead();
+	afx_msg void OnDaoWrite();
+	afx_msg void OnDaoEdit();
+	afx_msg void OnCreateDb();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };
@@ -66,4 +67,4 @@ inline CODBC_DAODoc* CODBC_DAOView::GetDocument()
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
 
-#endif // !defined(AFX_ODBC_DAOVIEW_H__167C6298_4C21_4754_961B_FC7ACB01075B__INCLUDED_)
+#endif // !defined(AFX_ODBC_DAOVIEW_H__377E4547_2DB1_4EB5_8345_D007C1930D21__INCLUDED_)

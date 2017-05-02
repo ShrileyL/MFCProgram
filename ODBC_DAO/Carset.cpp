@@ -2,7 +2,7 @@
 //
 
 #include "stdafx.h"
-#include "ODBC_DAO.h"
+#include "odbc_dao.h"
 #include "Carset.h"
 
 #ifdef _DEBUG
