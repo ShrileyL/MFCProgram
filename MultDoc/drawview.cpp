@@ -112,7 +112,7 @@ CDrawDoc* CDrawView::GetDocument() // non-debug version is inline
 
 void CDrawView::OnEllip() 
 {
-	GetDocument->SetStyle(Elli);
+	GetDocument()->SetStyle(Elli);
 	
 }
 
@@ -124,7 +124,7 @@ void CDrawView::OnLine()
 
 void CDrawView::OnRect() 
 {
-	GetDocument()->SetStyle(Rect)
+	GetDocument()->SetStyle(Rect);
 	
 }
 
@@ -159,14 +159,64 @@ void CDrawView::OnLButtonDown(UINT nFlags, CPoint point)
 
 void CDrawView::OnLButtonUp(UINT nFlags, CPoint point) 
 {
-	// TODO: Add your message handler code here and/or call default
+	CDrawDoc* pDoc = GetDocument();
+
+	CDC* pDC;
+	CPen dashPen(PS_DASH,1,RGB(255,255,255));//虚线笔
+	CPen drawPen(PS_INSIDEFRAME,pDoc->GetPenWidth(),pDoc->GetPenColor());//实线笔
+
+	CPen* pOldPen;
+	CBrush Brush(pDoc->GetBrushColor());
+	CPoint pt1 = pDoc->GetCPoint1();
+	CPoint pt2 = pDoc->GetCPoint2();
+
+	pDC = GetDC();
+	pDC->SetROP2(R2_XORPEN);//当前绘制模式：像素是画笔颜色和屏幕颜色的组合
+
+	pDC->SelectStockObject(NULL_BRUSH);
+	pOldPen= pDC->SelectObject(&dashPen);
+
+	switch (pDoc->GetStyle())
+	{
+	case Line:
+		pDC->MoveTo(pt1);
+		pDC->LineTo(pt2);
+
+		pDC->SelectObject(&drawPen);
+		pDC->SetROP2(R2_COPYPEN);//当前绘制模式：像素是画笔的颜色
+
+		pDC->MoveTo(pt1);
+		pDC->LineTo(point);
+		break;
+	case Rect:
+		pDC->Rectangle(pt1.x,pt1.y,pt2.x,pt2.y);
+
+		pDC->SelectObject(&Brush);//把刷子调换为新的刷子
+		pDC->SelectObject(&drawPen);//笔调换为实线笔
+		pDC->SetROP2(R2_COPYPEN);//
+
+		pDC->Rectangle(pt1.x,pt1.y,point.x,point.y);
+		break;
+	case Elli:
+		pDC->Ellipse(pt1.x,pt1.y,pt2.x,pt2.y);
+
+		pDC->SelectObject(&Brush);//
+		pDC->SelectObject(&drawPen);//
+		pDC->SetROP2(R2_COPYPEN);//
+
+		pDC->Ellipse(pt1.x,pt1.y,point.x,point.y);
+		break;
+	}
+	pDoc->SetCPoint2(point);//文档类管理函数取得鼠标当前光点
 	
-	CView::OnLButtonUp(nFlags, point);
+	pDC->SelectObject(pOldPen);
+	ReleaseDC(pDC);
+	ReleaseCapture();//取消鼠标锁定
 }
 
 void CDrawView::OnMouseMove(UINT nFlags, CPoint point) 
 {
-	CDrawDoc* pDoc = GetDocument();
+	CDrawDoc* pDoc = GetDocument();//获得文档类对象指针
 
 	CDC* pDC;
 	CPen dashPen(PS_DASH,1,RGB(255,255,255));
@@ -174,7 +224,34 @@ void CDrawView::OnMouseMove(UINT nFlags, CPoint point)
 	CPoint pt1 = pDoc->GetCPoint1();
 	CPoint pt2 = pDoc->GetCPoint2();
 
-	if(!GetCapture())
-		return;
-	pDC->SetROP2(R2_XORPEN);
+	if(!GetCapture())//如果没有按下鼠标
+		return;//什么都不做，返回
+	//否则
+
+	pDC = GetDC();
+	pDC->SetROP2(R2_XORPEN);//设置当前绘制模式
+	pDC->SelectStockObject(NULL_BRUSH);//透明刷
+	pOldPen=pDC->SelectObject(&dashPen);
+	
+	switch (pDoc->GetStyle())
+	{
+	case Line:
+		pDC->MoveTo(pt1);
+		pDC->LineTo(pt2);
+		pDC->MoveTo(pt1);
+		pDC->LineTo(point);
+		break;
+	case Rect:
+		pDC->Rectangle(pt1.x,pt1.y,pt2.x,pt2.y);
+		pDC->Rectangle(pt1.x,pt1.y,point.x,point.y);
+		break;
+	case Elli:
+		pDC->Ellipse(pt1.x,pt1.y,pt2.x,pt2.y);
+		pDC->Ellipse(pt1.x,pt1.y,point.x,point.y);
+		break;
+	}
+	pDoc->SetCPoint2(point);//文档类管理函数取得鼠标当前光点
+
+	pDC->SelectObject(pOldPen);
+	ReleaseDC(pDC);
 }

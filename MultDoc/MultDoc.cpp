@@ -90,7 +90,7 @@ BOOL CMultDocApp::InitInstance()
 		IDR_TEXTTYPE,
 		RUNTIME_CLASS(CTextDoc),
 		RUNTIME_CLASS(CChildFrame),
-		RUNTIME_CLASS(CTextView)));
+		RUNTIME_CLASS(CEditView)));//Œƒµµ±‡º≠¿‡CEditView
 
 	// create main MDI Frame window
 	CMainFrame* pMainFrame = new CMainFrame;
