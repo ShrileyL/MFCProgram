@@ -88,7 +88,7 @@ void CRightSwitchFrame::SwitchToView(UINT nView)
 		pNewActiveView->ShowWindow(SW_SHOW);
 		pNewActiveView->SetDlgCtrlID(AFX_IDW_PANE_FIRST);
 		pOldActiveView->ShowWindow(SW_HIDE);
-		pNewActiveView->SetDlgCtrlID(m_nCurrentViewID);
+		pOldActiveView->SetDlgCtrlID(m_nCurrentViewID);
 		m_nCurrentViewID=nView;
 
 		RecalcLayout();

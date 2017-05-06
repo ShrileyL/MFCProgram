@@ -143,7 +143,7 @@ void CLeftPane::OnSelchangedLeftpaneTree(NMHDR* pNMHDR, LRESULT* pResult)
 	
 	int nIndex= -1;
 	UINT nView;
-	m_pMainFrame = (CMainFrame*)GetParentFrame();//获得主框架指针
+	//m_pMainFrame = (CMainFrame*)GetParentFrame();//获得主框架指针
 
 	nIndex=m_LeftTree.GetItemData(m_LeftTree.GetSelectedItem());
 
