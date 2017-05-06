@@ -12,6 +12,7 @@
 
 #include "Splitter1.h"
 #include "Splitter2.h"
+#include "SplitterLinkList.h"
 
 class CRightSwitchFrame : public CFrameWnd
 {
@@ -29,6 +30,7 @@ public:
 
 // Operations
 public:
+	CSplitterLinkList* m_pSplitterLinkList;
 	void SwitchToView(UINT nView);
 
 // Overrides

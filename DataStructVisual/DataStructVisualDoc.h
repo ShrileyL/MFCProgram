@@ -9,6 +9,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
+#include "LinkList.h"
 
 class CDataStructVisualDoc : public CDocument
 {
@@ -32,6 +33,7 @@ public:
 
 // Implementation
 public:
+	CLinkList m_CLinkList;
 	virtual ~CDataStructVisualDoc();
 #ifdef _DEBUG
 	virtual void AssertValid() const;

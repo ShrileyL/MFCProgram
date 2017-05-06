@@ -22,6 +22,15 @@
 
 #define  VIEW_SPLITTER1				1
 #define  VIEW_SPLITTER2				2
+#define  VIEW_SPLITTER_LINKLIST		11
+#define  VIEW_SPLITTER_CIRCLEQUEUE	12 
+#define  VIEW_SPLITTER_DEQUEUE		13
+#define  VIEW_SPLITTER_BITREE		21
+#define  VIEW_SPLITTER_AVLTREE		22
+#define  VIEW_SPLITTER_B_TREE		23
+#define  VIEW_SPLITTER_UDGRAPHDFS	311
+#define  VIEW_SPLITTER_DIGGRAPHDIJ	321
+#define  VIEW_SPLITTER_SORT			4
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.

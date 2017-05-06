@@ -107,30 +107,30 @@ void CLeftPane::InitTree()
 	m_LeftTree.SetImageList(&m_TreeImageList,TVSIL_NORMAL);
 
 	//////////////////////在树控件添加信息/////////////////////////////////////
-	
+
 	m_LeftTree.DeleteAllItems();//清空当前书控件所有节点
-	m_Root = m_LeftTree.InsertItem("动态切换视图");//插入根节点
+	m_Root = m_LeftTree.InsertItem("数据结构");//插入根节点
 	TV_INSERTSTRUCT TCItem;
 	TCItem.item.mask=TVIF_TEXT|TVIF_PARAM|TVIF_IMAGE|TVIF_SELECTEDIMAGE;//设屏蔽
 	TCItem.hInsertAfter=TVI_LAST;//在最后项之后
-
-	CString strTreeNodeName="测试一";
+	
+	CString strTreeNodeName="线性结构";
 	pszText=strTreeNodeName.LockBuffer();
 	TCItem.hParent=m_Root;
 	TCItem.item.pszText=pszText;	
 	TCItem.item.iImage=1;
 	TCItem.item.iSelectedImage=2;
+	HTREEITEM hLinearStructure=m_LeftTree.InsertItem(&TCItem);
+	m_LeftTree.SetItemData(hLinearStructure,1);
+	
+	strTreeNodeName="单链表";
+	pszText=strTreeNodeName.LockBuffer();
+	TCItem.hParent=hLinearStructure;
+	TCItem.item.pszText=pszText;	
+	TCItem.item.iImage=3;
+	TCItem.item.iSelectedImage=4;
 	HTREEITEM hCurrent=m_LeftTree.InsertItem(&TCItem);
-	m_LeftTree.SetItemData(hCurrent,1);
-
-	strTreeNodeName="测试二";
-	pszText=strTreeNodeName.LockBuffer();
-	TCItem.hParent=m_Root;
-	TCItem.item.pszText=pszText;	
-	TCItem.item.iImage=1;
-	TCItem.item.iSelectedImage=2;
-	hCurrent=m_LeftTree.InsertItem(&TCItem);
-	m_LeftTree.SetItemData(hCurrent,2);
+	m_LeftTree.SetItemData(hCurrent,11);
 
 
 	m_LeftTree.Expand(m_Root, TVE_EXPAND); //展开根节点
@@ -140,10 +140,9 @@ void CLeftPane::OnSelchangedLeftpaneTree(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	NM_TREEVIEW* pNMTreeView = (NM_TREEVIEW*)pNMHDR;
 	// TODO: Add your control notification handler code here
-	
+	m_pMainFrame = (CMainFrame*)GetParentFrame();//获得主框架指针
 	int nIndex= -1;
 	UINT nView;
-	//m_pMainFrame = (CMainFrame*)GetParentFrame();//获得主框架指针
 
 	nIndex=m_LeftTree.GetItemData(m_LeftTree.GetSelectedItem());
 
@@ -155,7 +154,9 @@ void CLeftPane::OnSelchangedLeftpaneTree(NMHDR* pNMHDR, LRESULT* pResult)
 	case 2:	
 		nView = VIEW_SPLITTER2;
 		break;
-
+	case 11:	
+		nView = VIEW_SPLITTER_LINKLIST;
+		break;
 	default:
 		break;
 	}

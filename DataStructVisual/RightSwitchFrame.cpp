@@ -9,6 +9,8 @@
 #include "Draw2.h"
 #include "Control1.h"
 #include "Control2.h"
+#include "LinkListCrl.h"
+#include "LinkListDraw.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -54,6 +56,18 @@ BOOL CRightSwitchFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pCon
 	((CView*) m_pSplitter2)->Create(NULL, NULL, 0L, CFrameWnd::rectDefault, this, VIEW_SPLITTER2, pContext);
 	m_pSplitter2->ShowWindow(SW_HIDE);
 	m_pSplitter2->SetDlgCtrlID(VIEW_SPLITTER1);
+
+	
+	m_pSplitterLinkList = new CSplitterLinkList;
+	((CView*) m_pSplitterLinkList)->Create(
+		NULL, 
+		NULL, 
+		0L, 
+		CFrameWnd::rectDefault, this, 
+		VIEW_SPLITTER_LINKLIST, 
+		pContext);
+	m_pSplitterLinkList->ShowWindow(SW_HIDE);
+	m_pSplitterLinkList->SetDlgCtrlID(VIEW_SPLITTER_LINKLIST);
 	return TRUE;
 }
 
@@ -76,6 +90,9 @@ void CRightSwitchFrame::SwitchToView(UINT nView)
 		break;
 	case VIEW_SPLITTER2:
 		pNewActiveView = (CView*) m_pSplitter2;
+		break;
+	case    VIEW_SPLITTER_LINKLIST:
+		pNewActiveView = (CView*) m_pSplitterLinkList;
 		break;
 	}
 
