@@ -54,6 +54,9 @@ protected:
 	// Generated message map functions
 	//{{AFX_MSG(CLinkListCrl)
 	afx_msg void OnButtonAddlistnode();
+	afx_msg void OnButtonInsertlistnode();
+	afx_msg void OnButtonDeletelistnode();
+	afx_msg void OnButtonSearchlistnode();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

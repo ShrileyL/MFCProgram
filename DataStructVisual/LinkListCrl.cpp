@@ -44,6 +44,9 @@ void CLinkListCrl::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CLinkListCrl, CFormView)
 	//{{AFX_MSG_MAP(CLinkListCrl)
 	ON_BN_CLICKED(IDC_BUTTON_ADDLISTNODE, OnButtonAddlistnode)
+	ON_BN_CLICKED(IDC_BUTTON_INSERTLISTNODE, OnButtonInsertlistnode)
+	ON_BN_CLICKED(IDC_BUTTON_DELETELISTNODE, OnButtonDeletelistnode)
+	ON_BN_CLICKED(IDC_BUTTON_SEARCHLISTNODE, OnButtonSearchlistnode)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -91,4 +94,49 @@ void CLinkListCrl::OnButtonAddlistnode()
 	GetDlgItem(IDC_BUTTON_DELETELISTNODE)->EnableWindow(TRUE);
 	GetDlgItem(IDC_BUTTON_SEARCHLISTNODE)->EnableWindow(TRUE);
 	
+}
+
+void CLinkListCrl::OnButtonInsertlistnode() 
+{
+	// TODO: Add your control notification handler code here
+	UpdateData(TRUE);
+	if(m_LinkNodePos.IsEmpty()){
+		::AfxMessageBox("请输入插入位置.");
+		return;
+	}
+	if(m_LinkNodeValue.IsEmpty()){
+		::AfxMessageBox("请输入插入结点值.");
+		return;
+	}
+	int tLinkNodePos=atoi(m_LinkNodePos);
+	CSplitterWnd* pWnd = (CSplitterWnd*)GetParent();
+	((CLinkListDraw*)(pWnd->GetPane(0, 0)))->InsertLinkListNode(tLinkNodePos,m_LinkNodeValue);
+
+}
+
+void CLinkListCrl::OnButtonDeletelistnode() 
+{
+	// TODO: Add your control notification handler code here
+	UpdateData(TRUE);
+	if(m_LinkNodePos.IsEmpty()){
+		::AfxMessageBox("请输入删除位置.");
+		return;
+	}
+	int tLinkNodePos=atoi(m_LinkNodePos);
+	CSplitterWnd* pWnd = (CSplitterWnd*)GetParent();
+	((CLinkListDraw*)(pWnd->GetPane(0, 0)))->DeleteLinkListNode(tLinkNodePos);
+}
+
+void CLinkListCrl::OnButtonSearchlistnode() 
+{
+	// TODO: Add your control notification handler code here
+	UpdateData(TRUE); 
+	if(m_LinkNodeValue.IsEmpty())
+	{ 
+		::AfxMessageBox("请输入查找数据.");
+		return; 
+	} 
+	CSplitterWnd* pWnd = (CSplitterWnd*)GetParent(); 
+	((CLinkListDraw*)(pWnd->GetPane(0, 0)))->SearchLinkListNode(m_LinkNodeValue);
+	//GetDlgItem(IDC_NEXTBUTTON)-> EnableWindow(TRUE);
 }

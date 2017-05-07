@@ -49,8 +49,6 @@ BOOL CRightSwitchFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pCon
 	m_pSplitter1->Create(NULL, NULL, 0L, CFrameWnd::rectDefault, this, VIEW_SPLITTER1, pContext);
 	m_pSplitter1->ShowWindow(SW_SHOW);
 	m_pSplitter1->SetDlgCtrlID(AFX_IDW_PANE_FIRST);
-	m_nCurrentViewID = VIEW_SPLITTER1;
-	SetActiveView(m_pSplitter1);
 	
 	m_pSplitter2 = new CSplitter2;
 	((CView*) m_pSplitter2)->Create(NULL, NULL, 0L, CFrameWnd::rectDefault, this, VIEW_SPLITTER2, pContext);
@@ -68,6 +66,10 @@ BOOL CRightSwitchFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pCon
 		pContext);
 	m_pSplitterLinkList->ShowWindow(SW_HIDE);
 	m_pSplitterLinkList->SetDlgCtrlID(VIEW_SPLITTER_LINKLIST);
+
+	m_nCurrentViewID = VIEW_SPLITTER1;//当前活动视图ID
+	SetActiveView(m_pSplitter1);//当前活动视图
+
 	return TRUE;
 }
 
