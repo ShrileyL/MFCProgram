@@ -13,6 +13,8 @@
 #define IDI_ICON1                       134
 #define IDD_LINKLISTDRAW_FORMVIEW       135
 #define IDD_LINKLISTCRL_FORMVIEW        136
+#define IDD_CIRCLEQUEUE_CONTROL         137
+#define IDD_CIRCLEQUEUE_DRAW            138
 #define IDC_LEFTPANE_TREE               1000
 #define IDC_RADIO1                      1001
 #define IDC_CHECK1                      1002
@@ -21,16 +23,20 @@
 #define IDC_BUTTON_ADDLISTNODE          1005
 #define IDC_BUTTON_INSERTLISTNODE       1006
 #define IDC_BUTTON_DELETELISTNODE       1007
+#define IDC_EDIT_CIRCLEQUEUE_DATA       1007
 #define IDC_BUTTON_SEARCHLISTNODE       1008
+#define IDC_BUTTON_ENQUEUE              1008
+#define IDC_BUTTON_DEQUEUE              1009
+#define IDC_BUTTON_COUNTCIRCLEQUEUE     1010
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        137
+#define _APS_NEXT_RESOURCE_VALUE        139
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1007
+#define _APS_NEXT_CONTROL_VALUE         1011
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

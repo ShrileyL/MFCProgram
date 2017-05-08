@@ -11,6 +11,8 @@
 #include "Control2.h"
 #include "LinkListCrl.h"
 #include "LinkListDraw.h"
+#include "CircleQueueCrl.h"
+#include "CircleQueueDraw.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -67,6 +69,17 @@ BOOL CRightSwitchFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pCon
 	m_pSplitterLinkList->ShowWindow(SW_HIDE);
 	m_pSplitterLinkList->SetDlgCtrlID(VIEW_SPLITTER_LINKLIST);
 
+	m_pSplitterCircleQueue = new CSplitterCircleQueue;
+	((CView*) m_pSplitterCircleQueue)->Create(
+		NULL, 
+		NULL, 
+		0L, 
+		CFrameWnd::rectDefault, this, 
+		VIEW_SPLITTER_CIRCLEQUEUE, 
+		pContext);
+	m_pSplitterLinkList->ShowWindow(SW_HIDE);
+	m_pSplitterLinkList->SetDlgCtrlID(VIEW_SPLITTER_CIRCLEQUEUE);
+
 	m_nCurrentViewID = VIEW_SPLITTER1;//当前活动视图ID
 	SetActiveView(m_pSplitter1);//当前活动视图
 
@@ -95,6 +108,9 @@ void CRightSwitchFrame::SwitchToView(UINT nView)
 		break;
 	case    VIEW_SPLITTER_LINKLIST:
 		pNewActiveView = (CView*) m_pSplitterLinkList;
+		break;
+	case   VIEW_SPLITTER_CIRCLEQUEUE:
+		pNewActiveView = (CView*) m_pSplitterCircleQueue;
 		break;
 	}
 

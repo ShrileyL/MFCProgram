@@ -143,8 +143,8 @@ bool CLinkList::DrawLinkList(CDC *pDC)
 	tNextPoint.y=tPCurLNode->m_Point.y;
 	DrawArrow(tCurPoint,tNextPoint,pDC);
 	tStr="Head";
-	if(!pDC->TextOut(tPCurLNode->m_Point.x-52,
-		tCurPoint.y-18,tStr)) return false;
+	if(!pDC->TextOut(tPCurLNode->m_Point.x-56,
+		tCurPoint.y-22,tStr)) return false;
 	//»æÖÆ±íÎ²Ö¸Õë
 	tPCurLNode=m_LinkList.GetTail();
 	tCurPoint.x=tPCurLNode->m_Point.x+18;

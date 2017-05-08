@@ -10,6 +10,7 @@
 #endif // _MSC_VER > 1000
 
 #include "LinkList.h"
+#include "CircleQueue.h"
 
 class CDataStructVisualDoc : public CDocument
 {
@@ -34,6 +35,7 @@ public:
 // Implementation
 public:
 	CLinkList m_CLinkList;
+	CCircleQueue m_CircleQueue;
 	virtual ~CDataStructVisualDoc();
 #ifdef _DEBUG
 	virtual void AssertValid() const;
