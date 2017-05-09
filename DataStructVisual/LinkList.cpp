@@ -82,6 +82,7 @@ void CLinkList::DrawArrow(CPoint vBeginPoint, CPoint vEndpoint, CDC *pDC)
 	pDC->MoveTo(vEndpoint); 
 	pDC->LineTo(tPoint);
 }
+
 bool CLinkList::DrawLinkNode(CListNode *vPListNode, CDC *pDC)
 {
 	CPen tDrawPen,*tPOldPen;
