@@ -140,7 +140,15 @@ void CLeftPane::InitTree()
 	TCItem.item.iSelectedImage=4;
 	hCurrent=m_LeftTree.InsertItem(&TCItem);
 	m_LeftTree.SetItemData(hCurrent,12);
-
+	
+	strTreeNodeName="双端队列";
+	pszText=strTreeNodeName.LockBuffer();
+	TCItem.hParent=hLinearStructure;
+	TCItem.item.pszText=pszText;	
+	TCItem.item.iImage=3;
+	TCItem.item.iSelectedImage=4;
+	hCurrent=m_LeftTree.InsertItem(&TCItem);
+	m_LeftTree.SetItemData(hCurrent,13);
 
 	m_LeftTree.Expand(m_Root, TVE_EXPAND); //展开根节点
 }
@@ -168,6 +176,9 @@ void CLeftPane::OnSelchangedLeftpaneTree(NMHDR* pNMHDR, LRESULT* pResult)
 		break;
 	case 12:	
 		nView = VIEW_SPLITTER_CIRCLEQUEUE;
+		break;
+	case 13:
+		nView = VIEW_SPLITTER_DEQUEUE;
 		break;
 	default:
 		break;

@@ -11,6 +11,7 @@
 
 #include "LinkList.h"
 #include "CircleQueue.h"
+#include "DeQueue.h"
 
 class CDataStructVisualDoc : public CDocument
 {
@@ -36,6 +37,7 @@ public:
 public:
 	CLinkList m_CLinkList;
 	CCircleQueue m_CircleQueue;
+	CDeQueue m_DeQueue;
 	virtual ~CDataStructVisualDoc();
 #ifdef _DEBUG
 	virtual void AssertValid() const;

@@ -14,6 +14,7 @@
 #include "Splitter2.h"
 #include "SplitterLinkList.h"
 #include "SplitterCircleQueue.h"
+#include "SplitterDeQueue.h"
 
 class CRightSwitchFrame : public CFrameWnd
 {
@@ -33,6 +34,7 @@ public:
 public:
 	CSplitterLinkList* m_pSplitterLinkList;
 	CSplitterCircleQueue* m_pSplitterCircleQueue;
+	CSplitterDeQueue* m_pSplitterDeQueue;
 	void SwitchToView(UINT nView);
 
 // Overrides
