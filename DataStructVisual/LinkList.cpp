@@ -34,6 +34,7 @@ void CLinkList::AddTail(CPoint vPoint,CString vString)
 	tWidth=vPoint.x;
 	tHeight=vPoint.y;
 
+	//创建新节点
 	CListNode *pLNode = new CListNode();
 	pLNode->m_Visit=0;
 	pLNode->m_Color=RGB(0,0,0);
